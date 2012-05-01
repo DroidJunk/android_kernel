@@ -294,8 +294,8 @@ static int tuna_wifi_get_mac_addr(unsigned char *buf)
 {
     struct file *fp      	= NULL;
     char tempBuf[17]		= "00:09:4c:00:00:00";
-    char* filepath       	= "/system/.mac.info";
-    char* fpath       		= "/system/.mac.error";
+    char* filepath       	= "/data/local/tmp/.mac.info";
+    char* fpath       		= "/data/local/tmp/.mac_read.error";
     char* macIn = "00:90:4c:00:00:00";
     uint8_t macOut[6] = { 0,0x90,0x4c,0,0,0 };
     int ret = 0;
