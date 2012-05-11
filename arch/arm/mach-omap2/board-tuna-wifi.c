@@ -36,10 +36,6 @@
 #include "mux.h"
 #include "board-tuna.h"
 
-#include <linux/fcntl.h>
-#include <linux/fs.h>
-
-
 #define GPIO_WLAN_PMENA		104
 #define GPIO_WLAN_IRQ		2
 
@@ -255,9 +251,7 @@ static int tuna_wifi_reset(int on)
 	return 0;
 }
 
-static unsigned char tuna_mac_addr[IFHWADDRLEN] = { 0,0x90,0x4c,0,0,0 }; 
-/*static unsigned char tuna_mac_addr[IFHWADDRLEN] = { 0x2c,0x44,0x01,0xc5,0x53,0x92 }; */
-
+static unsigned char tuna_mac_addr[IFHWADDRLEN] = { 0,0x90,0x4c,0,0,0 };
 
 static int __init tuna_mac_addr_setup(char *str)
 {
@@ -292,37 +286,8 @@ __setup("androidboot.macaddr=", tuna_mac_addr_setup);
 
 static int tuna_wifi_get_mac_addr(unsigned char *buf)
 {
-    struct file *fp      	= NULL;
-    char tempBuf[17]		= "00:09:4c:00:00:00";
-    char* filepath       	= "/data/local/tmp/.mac.info";
-    char* fpath       		= "/data/local/tmp/.mac_read.error";
-    char* macIn = "00:90:4c:00:00:00";
-    uint8_t macOut[6] = { 0,0x90,0x4c,0,0,0 };
-    int ret = 0;
-    int type = omap4_tuna_get_type();
-    uint rand_mac;
-
-
-	fp = filp_open(filepath, O_RDONLY, 0);
-
-	if (IS_ERR(fp)) {
-		fp = filp_open(fpath, O_RDWR | O_CREAT, 0666);
-		} else {
-		ret = kernel_read(fp, 0, tempBuf, 17);
-		fp = filp_close(fp, NULL);
-		macIn = tempBuf;
-		sscanf(macIn, "%2x:%2x:%2x:%2x:%2x:%2x", macOut, macOut+1, macOut+2, macOut+3, macOut+4, macOut+5);
-
-		}
-
-	tuna_mac_addr[0] = macOut[0];
-	tuna_mac_addr[1] = macOut[1];
-	tuna_mac_addr[2] = macOut[2];
-	tuna_mac_addr[3] = macOut[3];
-	tuna_mac_addr[4] = macOut[4];
-	tuna_mac_addr[5] = macOut[5];
-		
-	
+	int type = omap4_tuna_get_type();
+	uint rand_mac;
 
 	if (type != TUNA_TYPE_TORO)
 		return -EINVAL;
