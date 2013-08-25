@@ -1581,6 +1581,7 @@ static void if_hsi_read_done(struct hsi_device *dev, unsigned int size)
 					DUMP_PREFIX_OFFSET,
 					channel->rx_data, channel->packet_size);
 
+
 				/* to clean the all wrong packet */
 				channel->packet_size = 0;
 				hsi_conn_err_recovery(mipi_ld);
