@@ -1,5 +1,5 @@
 export ARCH=arm
 make tuna_defconfig
-export CROSS_COMPILE=/media/Disc1/android/ics44/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+export CROSS_COMPILE=/media/Disc1/android/jb43/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-
 make menuconfig
-make -j32 ARCH=arm CROSS_COMPILE=/media/Disc1/android/ics44/prebuilt/linux-x86/toolchain/arm-eabi-4.4.3/bin/arm-eabi-
+make -j32 ARCH=arm CROSS_COMPILE=/media/Disc1/android/jb43/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7/bin/arm-eabi-
